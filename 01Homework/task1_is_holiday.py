@@ -7,7 +7,7 @@
 def is_holiday(num):
     if num == 6 or num == 7:
         return ('да')
-    elif num >= 1 and num <= 5:
+    elif 1 <= num <= 5:
         return ('нет')
     else:
         return ('некорректное число')

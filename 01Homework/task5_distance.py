@@ -15,10 +15,15 @@ def dist(x1, y1, x2, y2):
     return d
     
 
-a_x = int(input('Введите координату x первой точки: '))
-a_y = int(input('Введите координату y первой точки: '))
-b_x = int(input('Введите координату x второй точки: '))
-b_y = int(input('Введите координату y второй точки: '))
+# a_x = int(input('Введите координату x первой точки: '))
+# a_y = int(input('Введите координату y первой точки: '))
+# b_x = int(input('Введите координату x второй точки: '))
+# b_y = int(input('Введите координату y второй точки: '))
+point_list = []
+for i in range(4):
+    point_list.append(int(input('Введите координату: ')))
 
-print(f'Расстояние между точками: {dist(a_x, a_y, b_x, b_y)}')
+
+print(
+    f'Расстояние между точками: {dist(point_list[0], point_list[1], point_list[2], point_list[3])}')
 
