@@ -64,11 +64,8 @@ if __name__ == "__main__":
     POW = 10
 
 
+
     pol = generate_polynom(POW, MIN_COEFF, MAX_COEFF)
     pol_s = stringify_polynom(pol)
-    write_to_file_polynom('pol.txt', pol_s)
+    write_to_file_polynom('polynom.txt', pol_s)
 
-
-    pol1 = generate_polynom_dict(POW, MIN_COEFF, MAX_COEFF)
-    pol1_s = stringify_polynom_dict(pol1)
-    write_to_file_polynom('pol1.txt', pol1_s)
