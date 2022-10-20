@@ -13,12 +13,17 @@ def prime(num):
         while new_num % i == 0:
             pr.append(i)
             new_num //= i
-    i = 5
-    while i*i <= num:
+    k = 1
+    while (6*k - 1)*(6*k - 1) <= num:
+        i = 6*k - 1
         while new_num % i == 0:
             pr.append(i)
             new_num //= i
-        i += 2
+        i = 6*k + 1
+        while new_num % i == 0:
+            pr.append(i)
+            new_num //= i
+        k += 1
     if new_num != 1:
         pr.append(new_num)
     return list(set(pr))
