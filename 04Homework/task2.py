@@ -4,7 +4,7 @@
 # simple_number(147420) = > [2, 3, 5, 7, 13]
 # simple_number(374220) = > [2, 3, 5, 7, 11]
 
-def prime(num):
+def prime(num: int) -> list:
     pr = []
     new_num = num
     # пока делится на 2, делим на 2
