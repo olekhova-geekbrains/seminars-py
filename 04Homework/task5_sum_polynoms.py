@@ -8,8 +8,8 @@ from task4_polynom import stringify_polynom_dict, write_to_file_polynom
 
 
 def read_from_file_polynom(file_name: str):
-    with open(file_name, 'r') as f:
-        polynom_s = f.read()
+    with open(file_name, mode = 'r') as file:
+        polynom_s = file.read()
     return polynom_s
 
 def parse_polynom(pl: str) -> dict:
@@ -17,7 +17,10 @@ def parse_polynom(pl: str) -> dict:
     coeffs = {}
     for el in terms:
         if "^" not in el:
-            coeffs[0] = int(el)
+            if "*" not in el:
+                coeffs[0] = int(el)
+            else:
+                coeffs[1] = int(el.split("*")[0]) 
         else:
             pow_el = int(el.split("^")[1])
             coeff_el = int(el.split("*")[0])

@@ -44,16 +44,18 @@ def stringify_polynom(coeffs: list) -> str:
 
 def stringify_polynom_dict(coeffs: dict) -> str:
     terms = []
-    for key, value in coeffs.items():
-        if value == 0:
+    pows = list(coeffs.keys())
+    pows.sort(reverse=True)
+    for el in pows:
+        if coeffs[el] == 0:
             continue
-        if key == 0:
-            terms.append(f'{value}')
-        elif key == 1:
-            terms.append('x' if value == 1 else f'{value}*x')
+        if el == 0:
+            terms.append(f'{coeffs[el]}')
+        elif el == 1:
+            terms.append('x' if coeffs[el] == 1 else f'{coeffs[el]}*x')
         else:
-            terms.append(f'x^{key}' if value == 1 else f'{value}*x^{key}')
-    return ' + '.join(reversed(terms))
+            terms.append(f'x^{el}' if coeffs[el] == 1 else f'{coeffs[el]}*x^{el}')
+    return ' + '.join(terms)
 
 
 def write_to_file_polynom(file_name: str, polynom: str):
