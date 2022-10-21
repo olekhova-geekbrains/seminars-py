@@ -39,20 +39,13 @@ def sum_polynoms(pl1: dict, pl2: dict) -> dict:
 
 pol = read_from_file_polynom('./pol1.txt')
 pol_dict = parse_polynom(pol)
-print(pol)
-print(pol_dict)
 
 
 pol1 = read_from_file_polynom('./pol2.txt')
 pol1_dict = parse_polynom(pol1)
-print()
-print(pol1)
-print(pol1_dict)
 
 
 sum_pol = sum_polynoms(pol_dict, pol1_dict)
-print()
-print(sum_pol)
 
 
 sum_pol_s = stringify_polynom_dict(sum_pol)
