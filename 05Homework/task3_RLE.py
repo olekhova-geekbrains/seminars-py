@@ -7,9 +7,6 @@
 # WWJJJHDDDDDPPGRRR -> 2W3J1H5D2P1G3R -> WWJJJHDDDDDPPGRRR
 
 
-from curses.ascii import isdigit
-
-
 def encode(text: str) -> str:
     encoding = ''
     length = len(text)
