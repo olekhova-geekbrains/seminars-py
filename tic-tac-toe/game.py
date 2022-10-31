@@ -1,5 +1,16 @@
+from colorama import Fore, Back, Style
 import random
 import board
+from colorama import init
+init(autoreset=True)
+
+print(Fore.RED + 'some red text')
+print(Back.GREEN + 'and with a green background')
+print(Style.DIM + 'and in dim text')
+# print(Style.RESET_ALL)
+print('back to normal now')
+print('\033[31m' + 'some red text')
+print('\033[39m')  # and reset to default color
 
 EMPTY_SYMBOL = ' '
 
@@ -46,11 +57,12 @@ def enter_number(phrase: str) -> int:
             num = int(data) - 1
             break
         else:
-            print('Неправильный ввод. Введите еще раз!')
+            print(Fore.RED + 'Неправильный ввод. Введите еще раз!')
+            # print(Style.RESET_ALL)
     return num
 
 
-def is_victory(game_pr: list, sym: str = EMPTY_SYMBOL) -> bool:
+def get_victory_line(game_pr: list, sym: str = EMPTY_SYMBOL) -> list:
     row1 = [game_pr[0], game_pr[1], game_pr[2]]
     row2 = [game_pr[3], game_pr[4], game_pr[5]]
     row3 = [game_pr[6], game_pr[7], game_pr[8]]
@@ -60,30 +72,31 @@ def is_victory(game_pr: list, sym: str = EMPTY_SYMBOL) -> bool:
     diag1 = [game_pr[0], game_pr[5], game_pr[8]]
     diag2 = [game_pr[2], game_pr[5], game_pr[6]]
     if row1[0] != sym and len(set(row1)) == 1:
-        print('Первая строка выиграла')
-        return True
+        print(Fore.GREEN + 'Первая строка выиграла')
+        # print(Style.RESET_ALL)
+        return row1
     if row2[0] != sym and len(set(row2)) == 1:
-        print('Вторая строка выиграла')
-        return True
+        print(Fore.GREEN + 'Вторая строка выиграла')
+        return row2
     if row3[0] != sym and len(set(row3)) == 1:
-        print('Третья строка выиграла')
-        return True
+        print(Fore.GREEN + 'Третья строка выиграла')
+        return row3
     if column1[0] != sym and len(set(column1)) == 1:
-        print('Первый столбец выиграл')
-        return True
+        print(Fore.GREEN + 'Первый столбец выиграл')
+        return column1
     if column2[0] != sym and len(set(column2)) == 1:
-        print('Второй столбец выиграл')
-        return True
+        print(Fore.GREEN + 'Второй столбец выиграл')
+        return column2
     if column3[0] != sym and len(set(column3)) == 1:
-        print('Третий столбец выиграл')
-        return True
+        print(Fore.GREEN + 'Третий столбец выиграл')
+        return column3
     if diag1[0] != sym and len(set(diag1)) == 1:
-        print('Главная диагонали выиграла')
-        return True
+        print(Fore.GREEN + 'Главная диагонали выиграла')
+        return diag1
     if diag2[0] != sym and len(set(diag2)) == 1:
-        print('Побочная диагональ выиграла')
-        return True
-    return False
+        print(Fore.GREEN + 'Побочная диагональ выиграла')
+        return diag2
+    return None
 
 
 def play_ttt(user_x: str, user_o: str, sym: str = EMPTY_SYMBOL) -> str:
@@ -117,12 +130,15 @@ def play_ttt(user_x: str, user_o: str, sym: str = EMPTY_SYMBOL) -> str:
             game_progress[idx] = symbol_x if current_player == user_x else symbol_o
             # game_progress[i][j] = symbol_x if current_player == user_x else symbol_o
             current_board = board.create_board(game_progress)
-            if is_victory(game_progress):
+            victory_line = get_victory_line(game_progress)
+            if victory_line:
+                current_board = board.create_board_victory(game_progress, victory_line)
                 print(current_board)
                 return f'Игрок {current_player} выиграл!'
             current_player = user_o if current_player == user_x else user_x
         else:
-            print('Ячейка занята! Переходите.')
+            print(Fore.RED + 'Ячейка занята! Переходите.')
+            # print(Style.RESET_ALL)
 
         print(current_board)
     return 'Конец игры. Ничья.'
