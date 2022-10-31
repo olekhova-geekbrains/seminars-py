@@ -67,36 +67,41 @@ def get_victory_line(game_pr: list, sym: str = EMPTY_SYMBOL) -> list:
     row2 = [game_pr[3], game_pr[4], game_pr[5]]
     row3 = [game_pr[6], game_pr[7], game_pr[8]]
     column1 = [game_pr[0], game_pr[3], game_pr[6]]
-    column2 = [game_pr[0], game_pr[3], game_pr[6]]
-    column3 = [game_pr[0], game_pr[3], game_pr[6]]
-    diag1 = [game_pr[0], game_pr[5], game_pr[8]]
-    diag2 = [game_pr[2], game_pr[5], game_pr[6]]
+    column2 = [game_pr[1], game_pr[4], game_pr[7]]
+    column3 = [game_pr[2], game_pr[5], game_pr[8]]
+    diag1 = [game_pr[0], game_pr[4], game_pr[8]]
+    diag2 = [game_pr[2], game_pr[4], game_pr[6]]
     if row1[0] != sym and len(set(row1)) == 1:
         print(Fore.GREEN + 'Первая строка выиграла')
-        # print(Style.RESET_ALL)
-        return row1
+        return [0,1,2]
     if row2[0] != sym and len(set(row2)) == 1:
         print(Fore.GREEN + 'Вторая строка выиграла')
-        return row2
+        return [3, 4, 5]
     if row3[0] != sym and len(set(row3)) == 1:
         print(Fore.GREEN + 'Третья строка выиграла')
-        return row3
+        return [6, 7, 8]
     if column1[0] != sym and len(set(column1)) == 1:
         print(Fore.GREEN + 'Первый столбец выиграл')
-        return column1
+        return [0, 3, 6]
     if column2[0] != sym and len(set(column2)) == 1:
         print(Fore.GREEN + 'Второй столбец выиграл')
-        return column2
+        return [1, 4, 7]
     if column3[0] != sym and len(set(column3)) == 1:
         print(Fore.GREEN + 'Третий столбец выиграл')
-        return column3
+        return [2, 5, 8]
     if diag1[0] != sym and len(set(diag1)) == 1:
-        print(Fore.GREEN + 'Главная диагонали выиграла')
-        return diag1
+        print(Fore.GREEN + 'Главная диагональ выиграла')
+        return [0, 4, 8]
     if diag2[0] != sym and len(set(diag2)) == 1:
         print(Fore.GREEN + 'Побочная диагональ выиграла')
-        return diag2
+        return [2, 4, 6]
     return None
+
+
+def colorize_element(game_pr: list, vct_line: list) -> list:
+    for el in vct_line:
+        game_pr[el] = Fore.GREEN + game_pr[el] + Style.RESET_ALL
+    return game_pr
 
 
 def play_ttt(user_x: str, user_o: str, sym: str = EMPTY_SYMBOL) -> str:
@@ -132,7 +137,8 @@ def play_ttt(user_x: str, user_o: str, sym: str = EMPTY_SYMBOL) -> str:
             current_board = board.create_board(game_progress)
             victory_line = get_victory_line(game_progress)
             if victory_line:
-                current_board = board.create_board_victory(game_progress, victory_line)
+                game_progress = colorize_element(game_progress, victory_line)
+                current_board = board.create_board(game_progress)
                 print(current_board)
                 return f'Игрок {current_player} выиграл!'
             current_player = user_o if current_player == user_x else user_x
