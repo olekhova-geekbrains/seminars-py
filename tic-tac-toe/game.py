@@ -7,15 +7,24 @@ def select_player(player1: str, player2: str) -> str:
     return first_player
 
 
-def has_empty_cell(brd: list, sym: str = ' ') -> bool:
-    for row in brd:
-        if sym in row:
+# def has_empty_cell(brd: list, sym: str = ' ') -> bool:
+#     for row in brd:
+#         if sym in row:
+#             return True
+#     return False
+def has_empty_cell(game_pr: list, sym: str = ' ') -> bool:
+    for el in game_pr:
+        if el == sym:
             return True
     return False
 
 
-def is_empty_cell(brd: list, row, column, sym: str = ' ') -> bool:
-    if brd[row][column] == sym:
+# def is_empty_cell(brd: list, row, column, sym: str = ' ') -> bool:
+#     if brd[row][column] == sym:
+#         return True
+#     return False
+def is_empty_cell(game_pr: list, idx: int, sym: str = ' ') -> bool:
+    if game_pr[idx] == sym:
         return True
     return False
 
@@ -39,12 +48,51 @@ def enter_number(phrase: str) -> int:
     return num
 
 
+def is_victory(game_pr: list, sym: str = ' ') -> bool:
+    row1 = [game_pr[0], game_pr[1], game_pr[2]]
+    row2 = [game_pr[3], game_pr[4], game_pr[5]]
+    row3 = [game_pr[6], game_pr[7], game_pr[8]]
+    column1 = [game_pr[0], game_pr[3], game_pr[6]]
+    column2 = [game_pr[0], game_pr[3], game_pr[6]]
+    column3 = [game_pr[0], game_pr[3], game_pr[6]]
+    diag1 = [game_pr[0], game_pr[5], game_pr[8]]
+    diag2 = [game_pr[2], game_pr[5], game_pr[6]]
+    if row1[0] != sym and len(set(row1)) == 1:
+        print('Первая строка выиграла')
+        return True
+    if row2[0] != sym and len(set(row2)) == 1:
+        print('Вторая строка выиграла')
+        return True
+    if row3[0] != sym and len(set(row3)) == 1:
+        print('Третья строка выиграла')
+        return True
+    if column1[0] != sym and len(set(column1)) == 1:
+        print('Первый столбец выиграл')
+        return True
+    if column2[0] != sym and len(set(column2)) == 1:
+        print('Второй столбец выиграл')
+        return True
+    if column3[0] != sym and len(set(column3)) == 1:
+        print('Третий столбец выиграл')
+        return True
+    if diag1[0] != sym and len(set(diag1)) == 1:
+        print('Главная диагонали выиграла')
+        return True
+    if diag2[0] != sym and len(set(diag2)) == 1:
+        print('Побочная диагональ выиграла')
+        return True
+    return False
+
+
 def play_ttt(user_x: str, user_o: str) -> str:
     current_player = select_player(user_x, user_o)
     print(f"Первый ходит {current_player}")
-    game_progress = [[' ' for _ in range(3)] for _ in range(3)]
+
+    # game_progress = [[' ' for _ in range(3)] for _ in range(3)]
+    game_progress = [' ' for _ in range(9)]
     current_board = board.create_board(game_progress)
     print(current_board)
+
     symbol_x = 'x'
     symbol_o = 'o'
     while True:
@@ -55,21 +103,27 @@ def play_ttt(user_x: str, user_o: str) -> str:
 
         i = enter_number('Введите номер строки 1, 2 или 3: ')
         if i == -1:
-            return f'Игрок {current_player} сдался'
+            return f'Игрок {current_player} сдался.'
 
         j = enter_number('Введите номер стобца 1, 2 или 3: ')
         if j == -1:
-            return f'Игрок {current_player} сдался'
+            return f'Игрок {current_player} сдался.'
 
-        if is_empty_cell(game_progress, i, j):
-            game_progress[i][j] = symbol_x if current_player == user_x else symbol_o
-            current_player = user_o if current_player == user_x else user_x
+        idx = i * 3 + j
+        if is_empty_cell(game_progress, idx):
+        # if is_empty_cell(game_progress, i, j):
+            game_progress[idx] = symbol_x if current_player == user_x else symbol_o
+            # game_progress[i][j] = symbol_x if current_player == user_x else symbol_o
             current_board = board.create_board(game_progress)
+            if is_victory(game_progress):
+                print(current_board)
+                return f'Игрок {current_player} выиграл!'
+            current_player = user_o if current_player == user_x else user_x
         else:
             print('Ячейка занята! Переходите.')
 
         print(current_board)
-    return 'Конец игры'
+    return 'Конец игры. Ничья.'
 
 
 if __name__ == "__main__":
