@@ -1,6 +1,8 @@
 import random
 import board
 
+EMPTY_SYMBOL = ' '
+
 
 def select_player(player1: str, player2: str) -> str:
     first_player = random.choice([player1, player2])
@@ -12,7 +14,7 @@ def select_player(player1: str, player2: str) -> str:
 #         if sym in row:
 #             return True
 #     return False
-def has_empty_cell(game_pr: list, sym: str = ' ') -> bool:
+def has_empty_cell(game_pr: list, sym: str = EMPTY_SYMBOL) -> bool:
     for el in game_pr:
         if el == sym:
             return True
@@ -23,7 +25,7 @@ def has_empty_cell(game_pr: list, sym: str = ' ') -> bool:
 #     if brd[row][column] == sym:
 #         return True
 #     return False
-def is_empty_cell(game_pr: list, idx: int, sym: str = ' ') -> bool:
+def is_empty_cell(game_pr: list, idx: int, sym: str = EMPTY_SYMBOL) -> bool:
     if game_pr[idx] == sym:
         return True
     return False
@@ -48,7 +50,7 @@ def enter_number(phrase: str) -> int:
     return num
 
 
-def is_victory(game_pr: list, sym: str = ' ') -> bool:
+def is_victory(game_pr: list, sym: str = EMPTY_SYMBOL) -> bool:
     row1 = [game_pr[0], game_pr[1], game_pr[2]]
     row2 = [game_pr[3], game_pr[4], game_pr[5]]
     row3 = [game_pr[6], game_pr[7], game_pr[8]]
@@ -84,12 +86,12 @@ def is_victory(game_pr: list, sym: str = ' ') -> bool:
     return False
 
 
-def play_ttt(user_x: str, user_o: str) -> str:
+def play_ttt(user_x: str, user_o: str, sym: str = EMPTY_SYMBOL) -> str:
     current_player = select_player(user_x, user_o)
     print(f"Первый ходит {current_player}")
 
     # game_progress = [[' ' for _ in range(3)] for _ in range(3)]
-    game_progress = [' ' for _ in range(9)]
+    game_progress = [sym for _ in range(9)]
     current_board = board.create_board(game_progress)
     print(current_board)
 
