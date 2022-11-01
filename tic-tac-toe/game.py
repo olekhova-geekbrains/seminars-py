@@ -1,16 +1,9 @@
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 import random
 import board
 from colorama import init
 init(autoreset=True)
 
-print(Fore.RED + 'some red text')
-print(Back.GREEN + 'and with a green background')
-print(Style.DIM + 'and in dim text')
-# print(Style.RESET_ALL)
-print('back to normal now')
-print('\033[31m' + 'some red text')
-print('\033[39m')  # and reset to default color
 
 EMPTY_SYMBOL = ' '
 
@@ -20,11 +13,6 @@ def select_player(player1: str, player2: str) -> str:
     return first_player
 
 
-# def has_empty_cell(brd: list, sym: str = ' ') -> bool:
-#     for row in brd:
-#         if sym in row:
-#             return True
-#     return False
 def has_empty_cell(game_pr: list, sym: str = EMPTY_SYMBOL) -> bool:
     for el in game_pr:
         if el == sym:
@@ -32,10 +20,6 @@ def has_empty_cell(game_pr: list, sym: str = EMPTY_SYMBOL) -> bool:
     return False
 
 
-# def is_empty_cell(brd: list, row, column, sym: str = ' ') -> bool:
-#     if brd[row][column] == sym:
-#         return True
-#     return False
 def is_empty_cell(game_pr: list, idx: int, sym: str = EMPTY_SYMBOL) -> bool:
     if game_pr[idx] == sym:
         return True
@@ -58,7 +42,6 @@ def enter_number(phrase: str) -> int:
             break
         else:
             print(Fore.RED + 'Неправильный ввод. Введите еще раз!')
-            # print(Style.RESET_ALL)
     return num
 
 
@@ -108,7 +91,6 @@ def play_ttt(user_x: str, user_o: str, sym: str = EMPTY_SYMBOL) -> str:
     current_player = select_player(user_x, user_o)
     print(f"Первый ходит {current_player}")
 
-    # game_progress = [[' ' for _ in range(3)] for _ in range(3)]
     game_progress = [sym for _ in range(9)]
     current_board = board.create_board(game_progress)
     print(current_board)
@@ -131,9 +113,7 @@ def play_ttt(user_x: str, user_o: str, sym: str = EMPTY_SYMBOL) -> str:
 
         idx = i * 3 + j
         if is_empty_cell(game_progress, idx):
-        # if is_empty_cell(game_progress, i, j):
             game_progress[idx] = symbol_x if current_player == user_x else symbol_o
-            # game_progress[i][j] = symbol_x if current_player == user_x else symbol_o
             current_board = board.create_board(game_progress)
             victory_line = get_victory_line(game_progress)
             if victory_line:
@@ -144,7 +124,6 @@ def play_ttt(user_x: str, user_o: str, sym: str = EMPTY_SYMBOL) -> str:
             current_player = user_o if current_player == user_x else user_x
         else:
             print(Fore.RED + 'Ячейка занята! Переходите.')
-            # print(Style.RESET_ALL)
 
         print(current_board)
     return 'Конец игры. Ничья.'
