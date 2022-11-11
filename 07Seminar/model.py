@@ -35,6 +35,7 @@ def calculate(num_1: list, num_2: list, op: str) -> list:
         return [numer1 * denom2, denom1 * numer2]
 
 
-num1 = [2, 3]
-num2 = [3, 8]
-print(calculate(num1, num2, '/'))
+if __name__ == "__main__":
+    num1 = [2, 3]
+    num2 = [3, 8]
+    print(calculate(num1, num2, '/'))
