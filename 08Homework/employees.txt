@@ -1,0 +1,7 @@
+{'id': '3ed4ebfb-b476-483a-8c7e-1fc978880c00', 'surname': 'Иванов', 'name': 'Иван', 'group': '1А'}
+{'id': '1112285a-32ea-43ba-abee-03090e7942fa', 'surname': 'Зайцева', 'name': 'Елена', 'group': '3В'}
+{'id': '5f98d118-b397-450c-b73f-9dbc4c6fc065', 'surname': 'Петрова', 'name': 'Мария', 'group': '2A'}
+{'id': 'b6ae520f-7bf9-4853-a45d-601df4243ad5', 'surname': 'Иванов', 'name': 'Илья', 'group': '9А'}
+{'id': '4ee642e6-fb51-4be5-bd84-147a1ab2936c', 'surname': 'Кузнецова ', 'name': 'Ольга', 'group': '1А'}
+{'id': '29f05b21-e815-44b5-b7c6-d5d51ca8a2d3', 'surname': 'зуекщ', 'name': 'вфывф', 'group': '1'}
+{'id': '41340b6f-3491-4f05-8b2d-e83f3abdc4a6', 'surname': 'ya', 'name': 'bo', 'group': '1z'}
