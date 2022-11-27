@@ -11,7 +11,11 @@
 from random import randint, choice
 from colorama import Fore, Style
 from colorama import init
+from tqdm import tqdm
+
+
 init(autoreset=True)
+
 
 def select_game() -> int:
     while True:
@@ -70,6 +74,8 @@ def play_candy(user1: str, user2: str, count: int, max_candies: int) -> str:
             taken_candies = move_player(heap, max_candies)
         print(f'Игрок {current_player} взял {taken_candies} конфет')
         heap -= taken_candies
+        with tqdm(total=count) as pbar:
+            pbar.update(heap)
         if heap == 0:
             break
         current_player = user2 if current_player == user1 else user1
