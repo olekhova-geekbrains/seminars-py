@@ -1,0 +1,66 @@
+view
+Предложить юзеру меню:
+1 CREATE
+2 READ
+3 UPDATE
+4 DELETE
+5 EXPORT
+6 IMPORT1 (with ID)
+7 IMPORT (without ID)
+8 EXIT
+
+Model
+1 CREATE Добавить новую запись
+(input: str -> new data: dict)
+Принемает строку или строки
+Возвращает запись
+Запись, принятая от пользователя, новая. 
+{"last_name": last_name, "first_name": first_name, "group": group}
+Уникальный ID добавленный к записи, словарь словарей 
+{number:{запись от пользователя1} number1:{запись2}}
+
+
+2 READ Отобразить запись по ID
+(db: {dict}, id: int -> rec: dict)
+Принимает уникальный ID ввиде цифры
+
+3 UPDATE Обновить запись по ID
+(db: {dict}, ID: int, new data: str -> rec: dict)
+
+
+4 DELETE Удалить запись по ID
+(db: {dict}, ID: int -> updated db : {dict})
+
+
+ID REALIZATION
+ID stored in separated File
+get_id (file_name: str) -> next free ID: int
+
+
+store_id (file_name: str, last used ID: int) -> None
+
+
+import_with_id (db: {dict}, file_name: str) -> updated db: {dict}
+В файле уже содержатся уникальные ID
+
+import_without_id (db: {dict}, file_name: str) -> updated db: {dict}
+Парсим строку из файла сплитом, получаем список строк, заносим его в словарь для записи
+(Нужно применять get_id и store_id)
+
+db_main = dict()
+global_mapping = {"lastname": "Фамилия", "firstname": "Имя", "group": "Класс"}
+
+либо 
+def global_mapping():
+    return {"lastname": "Фамилия", "firstname": "Имя", "group": "Класс"}
+
+id = 32
+data_1 = ["Иванов", "Иван", "9F"]
+
+
+def update_record(db: dict, rec_id: int, data: list, mapping: dict):
+db[rec_id] = {name: value for name, value in zip(mapping.keys(), data)}
+return db
+
+
+update_record(db_main, id, data_1, global_mapping)
